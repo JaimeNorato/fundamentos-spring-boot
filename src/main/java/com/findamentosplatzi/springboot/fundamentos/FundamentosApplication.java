@@ -74,15 +74,17 @@ public class FundamentosApplication implements CommandLineRunner {
 //				.stream()
 //				.forEach(user -> LOGGER.info("Usuario findByNameOrEmail: " + user));
 
-		userRepository.findByBirthDateBetween(LocalDate.of(2021,1,1),LocalDate.of(2021,12,31))
-				.stream()
-				.forEach(user -> LOGGER.info("Usuario findByBirthDateBetween: " + user));
-		userRepository.findByNameLikeOrderByIdDesc("%ar%")
-				.stream()
-				.forEach(user -> LOGGER.info("Usuario findByNameLikeOrderByIdDesc: " + user));
-		userRepository.findByNameContainingOrderByIdDesc("ar")
-				.stream()
-				.forEach(user -> LOGGER.info("Usuario findByNameContainingOrderByIdDesc: " + user));
+//		userRepository.findByBirthDateBetween(LocalDate.of(2021,1,1),LocalDate.of(2021,12,31))
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario findByBirthDateBetween: " + user));
+//		userRepository.findByNameLikeOrderByIdDesc("%ar%")
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario findByNameLikeOrderByIdDesc: " + user));
+//		userRepository.findByNameContainingOrderByIdDesc("ar")
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario findByNameContainingOrderByIdDesc: " + user));
+		LOGGER.info("Usuario getAllByBirthDateAndEmail: " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021,7,7),"carlos@domain.com")
+				.orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
 	}
 	private void saveUserInDataBase(){
 		LOGGER.info("Insertando Usuarios en la base de datos");
