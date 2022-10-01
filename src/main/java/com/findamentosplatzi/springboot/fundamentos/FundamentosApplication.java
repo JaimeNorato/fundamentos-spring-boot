@@ -59,10 +59,15 @@ public class FundamentosApplication implements CommandLineRunner {
 		User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
 		User test3 = new User("TestTransactional3", "TestTransactional3@domain.com", LocalDate.now());
 		User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
+		User test11 = new User("TestTransactional5", "TestTransactional1@domain.com", LocalDate.now());
 
-		List<User> list = Arrays.asList(test1, test2, test3, test4);
+		List<User> list = Arrays.asList(test1, test2, test3, test4,test11);
 
-		userService.saveTransactional(list);
+		try {
+			userService.saveTransactional(list);
+		}catch (Exception e){
+			LOGGER.error("Esta es una dentro del metodo transaccional");
+		}
 		userService.getAllUsers()
 				.stream()
 				.forEach(user -> LOGGER.info("Este es el usuario dentro del metodo transactional: " + user));
