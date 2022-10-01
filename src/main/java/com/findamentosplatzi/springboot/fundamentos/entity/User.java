@@ -12,14 +12,14 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false, unique = true)
+    @Column(name = "id_user", nullable = false, unique = true)
     private Long id;
 
-    @Column(name= "name", length = 50, nullable = false)
+    @Column(length = 50)
     private String name;
-    @Column(name = "email", length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
-
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -30,20 +30,15 @@ public class User {
     }
 
     public User(String name, String email, LocalDate birthDate) {
-        this.id = id;
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
-        this.posts = posts;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -71,10 +66,6 @@ public class User {
 
     public List<Post> getPosts() {
         return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
     }
 
     @Override

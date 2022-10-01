@@ -1,5 +1,7 @@
 package com.findamentosplatzi.springboot.fundamentos.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,20 +9,20 @@ import javax.persistence.*;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id", nullable = false, unique = true)
+    @Column(name = "id_post", nullable = false, unique = true)
     private Long id;
-
-    @Column(name = "description", length = 256, nullable = false)
+    @Column(name = "description", length = 256)
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     public Post() {
     }
 
-    public Post(Long id, String description, User user) {
-        this.id = id;
+    public Post(String description, User user) {
         this.description = description;
         this.user = user;
     }
@@ -29,9 +31,6 @@ public class Post {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDescription() {
         return description;
@@ -45,9 +44,6 @@ public class Post {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public String toString() {

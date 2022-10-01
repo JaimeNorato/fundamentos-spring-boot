@@ -44,11 +44,12 @@ public class FundamentosApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		examplesBefore();
+//		examplesBefore();
 		saveUserInDataBase();
 	}
 
 	private void saveUserInDataBase(){
+		LOGGER.info("Insertando Usuarios en la base de datos");
 		User user1 = new User("Andres", "andres@mail.com", LocalDate.of(2000, 10, 10));
 		User user2 = new User("pedro", "pedro@mail.com", LocalDate.of(2011, 5, 10));
 		User user3 = new User("Andrea", "andrea@mail.com", LocalDate.of(2011, 11, 22));
@@ -65,6 +66,7 @@ public class FundamentosApplication implements CommandLineRunner {
 
 		List<User> list = Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12, user13);
 		list.stream().forEach(userRepository::save);
+		LOGGER.info("Usuarios insertados en la base de datos con Exito..");
 	}
 
 	private void examplesBefore(){
