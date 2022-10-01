@@ -51,20 +51,38 @@ public class FundamentosApplication implements CommandLineRunner {
 	}
 
 	private void getInformationJpqlFromUser() {
-		LOGGER.info("Usuario con jpql buscado por email: " +
-				userRepository.findByEmail("pedro@mail.com")
-				.orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+//		LOGGER.info("Usuario con jpql buscado por email: " +
+//				userRepository.findByEmail("pedro@mail.com")
+//				.orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+//
+//		userRepository.findAndSort("A", Sort.by("id").descending())
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario con jpql buscado por nombre: " + user));
+//
+//		userRepository.findByName("pedro")
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario con query metod buscado por nombre: " + user));
+//
+//		LOGGER.info("Usuario con quermetod por email y nombre: " +userRepository.findByEmailAndName("karen@domain.com","Karen")
+//				.orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+//
+//		userRepository.findByNameLike("%a%")
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario con query metod buscado por like nombre: " + user));
+//
+//		userRepository.findByNameOrEmail("paola",null)
+//				.stream()
+//				.forEach(user -> LOGGER.info("Usuario findByNameOrEmail: " + user));
 
-		userRepository.findAndSort("A", Sort.by("id").descending())
+		userRepository.findByBirthDateBetween(LocalDate.of(2021,1,1),LocalDate.of(2021,12,31))
 				.stream()
-				.forEach(user -> LOGGER.info("Usuario con jpql buscado por nombre: " + user));
-
-		userRepository.findByName("pedro")
+				.forEach(user -> LOGGER.info("Usuario findByBirthDateBetween: " + user));
+		userRepository.findByNameLikeOrderByIdDesc("%ar%")
 				.stream()
-				.forEach(user -> LOGGER.info("Usuario con query metod buscado por nombre: " + user));
-
-		LOGGER.info("Usuario con quermetod por email y nombre: " +userRepository.findByEmailAndName("karen@domain.com","Karen")
-				.orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+				.forEach(user -> LOGGER.info("Usuario findByNameLikeOrderByIdDesc: " + user));
+		userRepository.findByNameContainingOrderByIdDesc("ar")
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario findByNameContainingOrderByIdDesc: " + user));
 	}
 	private void saveUserInDataBase(){
 		LOGGER.info("Insertando Usuarios en la base de datos");
