@@ -29,7 +29,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String email, LocalDate birthDate, List<Post> posts) {
+    public User(String name, String email, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.email = email;
