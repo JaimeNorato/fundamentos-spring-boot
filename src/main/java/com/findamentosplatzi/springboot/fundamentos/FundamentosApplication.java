@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -46,8 +47,18 @@ public class FundamentosApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 //		examplesBefore();
 		saveUserInDataBase();
+		getInformationJpqlFromUser();
 	}
 
+	private void getInformationJpqlFromUser() {
+		LOGGER.info("Usuario con jpql buscado por email: " +
+				userRepository.findByEmail("pedro@mail.com")
+				.orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+
+		userRepository.findAndSort("A", Sort.by("id").descending())
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario con jpql buscado por nombre: " + user));
+	}
 	private void saveUserInDataBase(){
 		LOGGER.info("Insertando Usuarios en la base de datos");
 		User user1 = new User("Andres", "andres@mail.com", LocalDate.of(2000, 10, 10));
