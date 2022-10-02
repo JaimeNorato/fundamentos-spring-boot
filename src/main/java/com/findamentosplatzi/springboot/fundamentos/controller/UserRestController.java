@@ -1,9 +1,6 @@
 package com.findamentosplatzi.springboot.fundamentos.controller;
 
-import com.findamentosplatzi.springboot.fundamentos.caseuse.CreateUser;
-import com.findamentosplatzi.springboot.fundamentos.caseuse.DeleteUser;
-import com.findamentosplatzi.springboot.fundamentos.caseuse.GetUser;
-import com.findamentosplatzi.springboot.fundamentos.caseuse.UpdateUser;
+import com.findamentosplatzi.springboot.fundamentos.caseuse.*;
 import com.findamentosplatzi.springboot.fundamentos.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +16,14 @@ public class UserRestController {
     private CreateUser createUser;
     private DeleteUser deleteUser;
     private UpdateUser updateUser;
+    private PaginateUser paginateUser;
 
-    public UserRestController(GetUser getUser, CreateUser createUser, DeleteUser deleteUser, UpdateUser updateUser) {
+    public UserRestController(GetUser getUser, CreateUser createUser, DeleteUser deleteUser, UpdateUser updateUser, PaginateUser paginateUser) {
         this.getUser = getUser;
         this.createUser = createUser;
         this.deleteUser = deleteUser;
         this.updateUser = updateUser;
+        this.paginateUser = paginateUser;
     }
     @GetMapping("/")
     List<User> get(){
@@ -48,5 +47,10 @@ public class UserRestController {
     @PutMapping("/{id}")
     ResponseEntity<User> replaceUser(@RequestBody User user, @PathVariable Long id){
         return new ResponseEntity<>(updateUser.update(user, id), HttpStatus.OK);
+    }
+
+    @GetMapping("/pageable")
+    List<User> getUserPageable(@RequestParam int page, @RequestParam int size){
+        return paginateUser.paginate(page, size);
     }
 }

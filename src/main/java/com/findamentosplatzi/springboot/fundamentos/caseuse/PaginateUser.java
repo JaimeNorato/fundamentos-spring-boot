@@ -1,17 +1,20 @@
 package com.findamentosplatzi.springboot.fundamentos.caseuse;
 
+import com.findamentosplatzi.springboot.fundamentos.entity.User;
 import com.findamentosplatzi.springboot.fundamentos.service.UserService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class DeleteUser {
+public class PaginateUser {
     private UserService userService;
 
-    public DeleteUser(UserService userService) {
+    public PaginateUser(UserService userService) {
         this.userService = userService;
     }
 
-    public boolean delete(Long id) {
-        return userService.delete(id);
+    public List<User> paginate(int page, int size) {
+        return userService.paginate(page, size);
     }
 }
